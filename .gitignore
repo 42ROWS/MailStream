@@ -1,0 +1,147 @@
+# Gmail Tool v0.5 - Git Ignore File
+
+# Configuration files with sensitive data
+config.json
+!config.json.example
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.*.local
+
+# Never commit Client IDs
+*client_id*
+*CLIENT_ID*
+*.credentials
+!config.json.example
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build output
+dist/
+dist-ssr/
+build/
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+
+# Testing
+coverage/
+*.lcov
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.cache
+.cache/
+
+# User data and test files
+downloads/
+exports/
+test-*.csv
+test.html
+*.eml
+*.zip
+*.pdf
+
+# Documentation and development folders to exclude
+/docs/
+/dev-setup/
+/tests/
+REFACTORING_REPORT.md
+
+# Sensitive data
+credentials/
+secrets/
+private/
+*.key
+*.pem
+*.cert
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Backup files
+*.backup
+*.bak
+*~
+
+# IDE
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Parcel cache
+.parcel-cache
+
+# Next.js
+.next/
+out/
+
+# Nuxt.js
+.nuxt/
+
+# Vite
+vite.config.js.timestamp-*
+
+# Testing artifacts
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test/
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*

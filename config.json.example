@@ -1,0 +1,14 @@
+{
+  "clientId": "YOUR_CLIENT_ID_HERE.apps.googleusercontent.com",
+  "debug": false,
+  "logLevel": "info",
+  "_comment": "Rename this file to config.json and add your Google OAuth Client ID",
+  "_instructions": {
+    "step1": "Go to https://console.cloud.google.com",
+    "step2": "Create a new project or select existing",
+    "step3": "Enable Gmail API",
+    "step4": "Create OAuth 2.0 credentials",
+    "step5": "Copy the Client ID and paste it above",
+    "step6": "Add http://localhost:8000 to authorized JavaScript origins for development"
+  }
+}
