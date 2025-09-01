@@ -1,64 +1,60 @@
 # Gmail Tool v0.5 - Client-Side Email Manager 🚀
 
-Una applicazione javascript **100% client-side** per l'invio batch di email e il download massivo da Gmail.
+A **100% client-side** JavaScript application for batch email sending and bulk downloading from Gmail.
 
-![Version](https://img.shields.io/badge/version-0.5-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)
+## ✨ Key Features
 
-## ✨ Caratteristiche Principali
+### 📤 Batch Email Sending
+- CSV file upload with ready-to-send emails
+- CSV must contain: `recipient`, `subject`, `content`
+- Intelligent rate limiting (35-75 seconds between emails)
+- Pause/Resume during sending
+- Real-time progress tracking
+- Automatic Gmail quota management (500/2000 emails per day)
+- Export results to CSV
 
-### 📤 Invio Batch Email
-- Caricamento file CSV con email pronte all'invio
-- CSV deve contenere: `destinatario`, `oggetto`, `contenuto`
-- Rate limiting intelligente (35-75 secondi tra email)
-- Pausa/Riprendi durante l'invio
-- Tracking real-time del progresso
-- Gestione automatica quota Gmail (500/2000 email al giorno)
-- Export risultati in CSV
+### 📥 Email Download
+- Advanced search filters (date, sender, subject, labels, attachments)
+- Download emails with attachments in ZIP format
+- Export metadata to CSV
+- Support up to 10,000 emails
+- Progress tracking with pause/resume
+- HTML report with statistics
 
-### 📥 Download Email
-- Filtri avanzati di ricerca (data, mittente, oggetto, etichette, allegati)
-- Download email con allegati in formato ZIP
-- Export metadati in CSV
-- Supporto fino a 10,000 email
-- Progress tracking con pausa/riprendi
-- Report HTML con statistiche
-
-### 🔒 Sicurezza & Privacy
-- **ZERO costi di audit OAuth** ($15,000-$75,000/anno risparmiati!)
-- Nessun server richiesto - tutto nel browser
-- Token OAuth temporanei (1 ora con auto-refresh)
-- Dati rimangono sempre nel tuo browser
-- Codice open source verificabile
+### 🔒 Security & Privacy
+- **ZERO OAuth audit costs** ($15,000-$75,000/year saved!)
+- No server required - everything runs in the browser
+- Temporary OAuth tokens (1 hour with auto-refresh)
+- Data always remains in your browser
+- Verifiable open source code
 
 ## 🚀 Quick Start
 
-### 1. Configurazione Google Cloud Console
+### 1. Google Cloud Console Setup
 
-1. Vai su [Google Cloud Console](https://console.cloud.google.com/)
-2. Crea un nuovo progetto o seleziona uno esistente
-3. Abilita **Gmail API**:
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable **Gmail API**:
    - Menu → APIs & Services → Library
-   - Cerca "Gmail API"
+   - Search for "Gmail API"
    - Click "Enable"
 
-4. Crea credenziali OAuth 2.0:
+4. Create OAuth 2.0 credentials:
    - Menu → APIs & Services → Credentials
    - Click "Create Credentials" → "OAuth client ID"
    - Application type: "Web application"
    - Name: "Gmail Tool v0.5"
    - Authorized JavaScript origins:
-     - `http://localhost:8000` (per development)
-     - `https://tuodominio.com` (per produzione)
+     - `http://localhost:8000` (for development)
+     - `https://yourdomain.com` (for production)
    - Click "Create"
-   - Copia il **Client ID**
+   - Copy the **Client ID**
 
-### 2. Configurazione Applicazione
+### 2. Application Configuration
 
-#### Metodo 1: File config.json (Consigliato)
-1. Copia `config.json.example` in `config.json`
-2. Modifica il file con il tuo Client ID:
+#### Method 1: config.json File (Recommended)
+1. Copy `config.json.example` to `config.json`
+2. Edit the file with your Client ID:
 ```json
 {
   "clientId": "YOUR_CLIENT_ID.apps.googleusercontent.com",
@@ -66,23 +62,23 @@ Una applicazione javascript **100% client-side** per l'invio batch di email e il
 }
 ```
 
-#### Metodo 2: LocalStorage (Per test rapidi)
-Apri la console del browser e esegui:
+#### Method 2: LocalStorage (For quick testing)
+Open the browser console and run:
 ```javascript
 localStorage.setItem('gmail_tool_client_id', 'YOUR_CLIENT_ID.apps.googleusercontent.com');
 ```
 
-#### Metodo 3: Variabile globale
-Aggiungi in `index.html` prima degli script:
+#### Method 3: Global Variable
+Add to `index.html` before the scripts:
 ```html
 <script>
   window.GOOGLE_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
 </script>
 ```
 
-### 3. Avvio Locale
+### 3. Local Setup
 
-#### Opzione A: Python (Consigliato)
+#### Option A: Python (Recommended)
 ```bash
 # Python 3
 python -m http.server 8000
@@ -91,91 +87,91 @@ python -m http.server 8000
 python -m SimpleHTTPServer 8000
 ```
 
-#### Opzione B: Node.js
+#### Option B: Node.js
 ```bash
-# Installa http-server globalmente
+# Install http-server globally
 npm install -g http-server
 
-# Avvia il server
+# Start the server
 http-server -p 8000
 ```
 
-#### Opzione C: VS Code Live Server
-- Installa l'estensione "Live Server"
-- Click destro su `index.html` → "Open with Live Server"
+#### Option C: VS Code Live Server
+- Install the "Live Server" extension
+- Right-click on `index.html` → "Open with Live Server"
 
-4. Apri il browser: `http://localhost:8000`
+4. Open your browser: `http://localhost:8000`
 
-## 📖 Guida Utilizzo
+## 📖 Usage Guide
 
-### Invio Batch Email
+### Batch Email Sending
 
-1. **Prepara il file CSV**:
-   Il CSV deve contenere esattamente queste 3 colonne:
-   - `destinatario` - Email del destinatario
-   - `oggetto` - Oggetto dell'email
-   - `contenuto` - Corpo dell'email (testo o HTML)
+1. **Prepare the CSV file**:
+   The CSV must contain exactly these 3 columns:
+   - `recipient` - Recipient's email address
+   - `subject` - Email subject
+   - `content` - Email body (text or HTML)
    
-   Esempio CSV:
+   Example CSV:
    ```csv
-   destinatario,oggetto,contenuto
-   mario.rossi@example.com,Importante: Aggiornamento Account,Gentile Mario...
-   lucia.bianchi@example.com,Newsletter Mensile,Ecco le novità...
+   recipient,subject,content
+   john.doe@example.com,Important: Account Update,Dear John...
+   jane.smith@example.com,Monthly Newsletter,Here are the latest updates...
    ```
 
-2. **Carica il CSV**:
-   - Click su "Carica File CSV" o trascina il file
-   - Il sistema verifica automaticamente le colonne richieste
+2. **Upload the CSV**:
+   - Click "Upload CSV File" or drag and drop the file
+   - The system automatically verifies the required columns
 
-3. **Verifica Anteprima**:
-   - Controlla l'anteprima delle email
-   - Verifica destinatari e contenuti
+3. **Preview Check**:
+   - Review the email preview
+   - Verify recipients and content
 
-4. **Configura Opzioni**:
-   - ✅ Ritardo tra email: Sempre consigliato (35-75 secondi)
-   - ⚠️ Batch API: Più veloce ma meno controllo
+4. **Configure Options**:
+   - ✅ Delay between emails: Always recommended (35-75 seconds)
+   - ⚠️ Batch API: Faster but less control
 
-5. **Inizia l'Invio**:
-   - Click su "Inizia Invio"
-   - Monitora il progresso in tempo reale
-   - Puoi mettere in pausa/riprendere in qualsiasi momento
+5. **Start Sending**:
+   - Click "Start Sending"
+   - Monitor progress in real-time
+   - You can pause/resume at any time
 
-### Download Email
+### Email Download
 
-1. **Imposta i Filtri**:
-   - Data: Seleziona range temporale
-   - Mittente/Destinatario: Filtra per email specifiche
-   - Oggetto: Cerca parole chiave
-   - Opzioni: Solo con allegati, non lette, etc.
+1. **Set Filters**:
+   - Date: Select time range
+   - From/To: Filter by specific emails
+   - Subject: Search keywords
+   - Options: Only with attachments, unread, etc.
 
-2. **Cerca Email**:
-   - Click su "Cerca Email"
-   - Rivedi i risultati nella tabella
-   - Max 100 email per pagina (con paginazione)
+2. **Search Emails**:
+   - Click "Search Emails"
+   - Review results in the table
+   - Max 100 emails per page (with pagination)
 
-3. **Seleziona Email**:
-   - Seleziona singole email o "Seleziona Tutto"
-   - Verifica la stima delle dimensioni
+3. **Select Emails**:
+   - Select individual emails or "Select All"
+   - Check the size estimate
 
-4. **Configura Download**:
-   - Formato: ZIP (completo) o CSV (solo metadati)
-   - Contenuto: Allegati, corpo email, headers
+4. **Configure Download**:
+   - Format: ZIP (complete) or CSV (metadata only)
+   - Content: Attachments, email body, headers
 
-5. **Scarica**:
-   - Click su "Inizia Download"
-   - Monitora il progresso
-   - Al termine, salva il file ZIP/CSV
+5. **Download**:
+   - Click "Start Download"
+   - Monitor progress
+   - When complete, save the ZIP/CSV file
 
-## 🛠️ Configurazione Avanzata
+## 🛠️ Advanced Configuration
 
-### Limiti e Quote
+### Limits and Quotas
 
-I limiti sono configurati in `js/config.js`:
+Limits are configured in `js/config.js`:
 
 ```javascript
 RATE_LIMITS: {
-    MIN_DELAY_MS: 35000,        // Delay minimo tra email (35 secondi)
-    MAX_DELAY_MS: 75000,        // Delay massimo tra email (75 secondi)
+    MIN_DELAY_MS: 35000,        // Minimum delay between emails (35 seconds)
+    MAX_DELAY_MS: 75000,        // Maximum delay between emails (75 seconds)
     QUOTA_PER_DAY: 500,         // Gmail free
     QUOTA_PER_DAY_WORKSPACE: 2000, // Google Workspace
 }
@@ -183,7 +179,7 @@ RATE_LIMITS: {
 
 ### Debug Mode
 
-Per abilitare il debug, modifica `config.json`:
+To enable debug mode, edit `config.json`:
 
 ```json
 {
@@ -193,73 +189,79 @@ Per abilitare il debug, modifica `config.json`:
 }
 ```
 
-## 📊 Limiti Tecnici
+## 📊 Technical Limits
 
-| Funzionalità | Limite | Note |
-|--------------|--------|------|
-| Email per giorno | 500 (free) / 2000 (workspace) | Limite Gmail |
-| Email per batch | 100 | API Gmail |
-| Dimensione allegati | 25 MB | Per singolo allegato |
-| Email scaricabili | 10,000 | Limite browser memory |
-| Dimensione ZIP | ~500 MB | Dipende dal browser |
-| Token validità | 1 ora | Auto-refresh |
+| Feature | Limit | Notes |
+|---------|-------|-------|
+| Emails per day | 500 (free) / 2000 (workspace) | Gmail limit |
+| Emails per batch | 100 | Gmail API |
+| Attachment size | 25 MB | Per single attachment |
+| Downloadable emails | 10,000 | Browser memory limit |
+| ZIP size | ~500 MB | Depends on browser |
+| Token validity | 1 hour | Auto-refresh |
 
 ## 🔧 Troubleshooting
 
 ### "Tailwind CSS should not be used in production"
-- **Questo è normale** - È solo un avviso per development
-- L'app funziona perfettamente
-- Il CDN Tailwind è usato solo per demo/prototipazione
+- **This is normal** - It's just a development warning
+- The app works perfectly
+- Tailwind CDN is used only for demo/prototyping
 
-### "Popup bloccato"
-- Consenti popup per localhost:8000
+### "Popup blocked"
+- Allow popups for localhost:8000
 - Chrome: Settings → Privacy → Site Settings → Popups
 
 ### "Quota exceeded"
-- Limite giornaliero raggiunto (500 email per account free)
-- Attendi 24 ore o usa account Workspace (2000 email/giorno)
+- Daily limit reached (500 emails for free accounts)
+- Wait 24 hours or use Workspace account (2000 emails/day)
 
 ### "Token expired"
-- Normale dopo 1 ora di inattività
-- Click su "Accedi" per rinnovare automaticamente
+- Normal after 1 hour of inactivity
+- Click "Sign In" to automatically renew
 
 ### "Failed to fetch"
-- Verifica connessione internet
-- Controlla che Gmail API sia abilitata
-- Verifica Client ID configurato correttamente
+- Check internet connection
+- Ensure Gmail API is enabled
+- Verify Client ID is configured correctly
 
-### "CSV non valido"
-- Il CSV deve avere esattamente 3 colonne: `destinatario`, `oggetto`, `contenuto`
-- Verifica encoding UTF-8
-- Controlla che non ci siano virgole nei contenuti (usa virgolette se necessario)
+### "Invalid CSV"
+- CSV must have exactly 3 columns: `recipient`, `subject`, `content`
+- Verify UTF-8 encoding
+- Check for commas in content (use quotes if necessary)
 
-## 🤝 Contribuire
+## 🤝 Contributing
 
-Contribuzioni sono benvenute! 
+Contributions are welcome!
 
-1. Fork il repository
-2. Crea un branch (`git checkout -b feature/AmazingFeature`)
-3. Commit modifiche (`git commit -m 'Add AmazingFeature'`)
-4. Push al branch (`git push origin feature/AmazingFeature`)
-5. Apri una Pull Request
+1. Fork the repository
+2. Create a branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📄 Licenza
+## 📄 License
 
-Distribuito sotto licenza MIT. Vedi `LICENSE` per maggiori informazioni.
+Distributed under the MIT License. See `LICENSE` for more information.
 
-## 🙏 Crediti
+## 🙏 Credits
 
-### Librerie Utilizzate
-- [Google Identity Services](https://developers.google.com/identity) - Autenticazione OAuth
-- [Gmail API](https://developers.google.com/gmail/api) - Accesso Gmail
-- [PapaParse](https://www.papaparse.com/) - Parsing CSV
-- [zip.js](https://gildas-lormeau.github.io/zip.js/) - Creazione ZIP
-- [FileSaver.js](https://github.com/eligrey/FileSaver.js/) - Download files
+### Libraries Used
+- [Google Identity Services](https://developers.google.com/identity) - OAuth Authentication
+- [Gmail API](https://developers.google.com/gmail/api) - Gmail Access
+- [PapaParse](https://www.papaparse.com/) - CSV Parsing
+- [zip.js](https://gildas-lormeau.github.io/zip.js/) - ZIP Creation
+- [FileSaver.js](https://github.com/eligrey/FileSaver.js/) - File Downloads
 - [Tailwind CSS](https://tailwindcss.com/) - Styling (via CDN)
 
-## 📞 Supporto
+## 📞 Support
 
 Made with ☕ and 💻 by me. Feel free to contact us [https://42rows.com](https://42rows.com)
+
+---
+
+⚠️ **Disclaimer**: This application is NOT affiliated with Google. It uses official Gmail APIs in compliance with the terms of service. The user is responsible for respecting sending limits and anti-spam policies.
+
+© 2024 42ROWS Srl - P.IVA: 18017981004
 
 ---
 
