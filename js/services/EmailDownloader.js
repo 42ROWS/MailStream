@@ -494,7 +494,8 @@ class EmailDownloader {
             // Add emails as EML files
             for (const email of this.#emails) {
                 const emlContent = this.#createEMLContent(email);
-                const filename = `emails/${sanitizeFilename(email.subject || email.id)}.eml`;
+                // FIX: Added email.id to ensure unique filenames and prevent 'File already exists' error
+                const filename = `emails/${sanitizeFilename(email.subject || 'no-subject')}_${email.id}.eml`;
                 
                 await zipWriter.add(
                     filename,
