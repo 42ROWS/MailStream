@@ -492,10 +492,20 @@ class EmailDownloader {
             );
             
             // Add emails as EML files
+            // Track filenames to detect any potential duplicates
+            const emailFilenames = new Set();
+            
             for (const email of this.#emails) {
                 const emlContent = this.#createEMLContent(email);
                 // FIX: Added email.id to ensure unique filenames and prevent 'File already exists' error
                 const filename = `emails/${sanitizeFilename(email.subject || 'no-subject')}_${email.id}.eml`;
+                
+                // Safety check for duplicates (should never happen with ID included)
+                if (emailFilenames.has(filename)) {
+                    logger.error(`Duplicate email filename detected: ${filename}`);
+                    continue; // Skip this file to prevent ZIP error
+                }
+                emailFilenames.add(filename);
                 
                 await zipWriter.add(
                     filename,
@@ -504,9 +514,27 @@ class EmailDownloader {
             }
             
             // Add attachments
+            // FIX: Track attachment filenames to prevent duplicates
+            const attachmentFilenames = new Map();
+            
             for (const attachment of this.#attachments) {
                 const folder = `attachments/${attachment.emailId}/`;
-                const filename = folder + sanitizeFilename(attachment.filename);
+                let baseFilename = sanitizeFilename(attachment.filename);
+                let filename = folder + baseFilename;
+                
+                // Handle duplicate attachment names
+                let counter = 1;
+                const originalFilename = filename;
+                while (attachmentFilenames.has(filename)) {
+                    const ext = baseFilename.lastIndexOf('.') > -1 
+                        ? baseFilename.substring(baseFilename.lastIndexOf('.'))
+                        : '';
+                    const nameWithoutExt = baseFilename.substring(0, baseFilename.lastIndexOf('.') > -1 ? baseFilename.lastIndexOf('.') : baseFilename.length);
+                    baseFilename = `${nameWithoutExt}_${counter}${ext}`;
+                    filename = folder + baseFilename;
+                    counter++;
+                }
+                attachmentFilenames.set(filename, true);
                 
                 // Decode base64 data
                 const binaryString = atob(attachment.data.replace(/-/g, '+').replace(/_/g, '/'));
