@@ -20,6 +20,7 @@ import { showToast, showElement, hideElement, showWarning } from './utils/UIHelp
 import { gmailCache } from './core/SmartCache.js';
 import { memoryMonitor } from './core/MemoryMonitor.js';
 import { performanceMonitor } from './core/PerformanceMonitor.js';
+import i18n from './i18n/index.js';
 
 // Application class
 class GmailToolApp {
@@ -43,6 +44,9 @@ class GmailToolApp {
             
             // Mark performance start
             logger.performance.mark('app_init_start');
+            
+            // Initialize i18n system FIRST
+            await i18n.init();
             
             // Setup error handling
             this.setupErrorHandling();

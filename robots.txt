@@ -1,0 +1,29 @@
+# robots.txt for mailer.42rows.com
+# Generated: 2025-10-06
+
+User-agent: *
+Allow: /
+
+# Disallow sensitive files
+Disallow: /config.json
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Sitemaps
+Sitemap: https://mailer.42rows.com/sitemap.xml
+
+# Crawl-delay (prevents aggressive crawling)
+Crawl-delay: 1
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
