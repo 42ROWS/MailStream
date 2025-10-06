@@ -341,6 +341,10 @@ class GmailToolApp {
         const authStatus = document.getElementById('auth-status');
         if (!authStatus) return;
         
+        // Preserve language switcher if exists
+        const langSwitcher = authStatus.querySelector('.language-switcher');
+        const langSwitcherHTML = langSwitcher ? langSwitcher.outerHTML : '';
+        
         if (user) {
             authStatus.innerHTML = `
                 <div class="flex items-center gap-3">
@@ -359,6 +363,15 @@ class GmailToolApp {
                 </div>
             `;
             
+            // Re-insert language switcher at the beginning
+            if (langSwitcherHTML) {
+                authStatus.insertAdjacentHTML('afterbegin', langSwitcherHTML);
+                // Re-attach event listeners for language switcher
+                if (window.i18nInstance) {
+                    window.i18nInstance.attachSwitcherEvents();
+                }
+            }
+            
             // Add signout handler
             const signoutButton = document.getElementById('signout-button');
             if (signoutButton) {
@@ -368,6 +381,14 @@ class GmailToolApp {
             }
         } else {
             authStatus.innerHTML = '';
+            // Re-insert language switcher
+            if (langSwitcherHTML) {
+                authStatus.insertAdjacentHTML('afterbegin', langSwitcherHTML);
+                // Re-attach event listeners for language switcher
+                if (window.i18nInstance) {
+                    window.i18nInstance.attachSwitcherEvents();
+                }
+            }
         }
     }
     

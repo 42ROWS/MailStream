@@ -245,3 +245,8 @@ const i18n = new I18n();
 
 // Export for use in other modules
 export default i18n;
+
+// Expose globally for re-attaching events after DOM updates
+if (typeof window !== 'undefined') {
+    window.i18nInstance = i18n;
+}
