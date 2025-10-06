@@ -177,7 +177,7 @@ class I18n {
                     </svg>
                     <span class="font-medium text-gray-700 uppercase">${this.currentLang}</span>
                 </button>
-                <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-50 border border-gray-200">
+                <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200" style="z-index: 9999;">
                     <div class="py-2">
                         ${this.supportedLangs.map(lang => `
                             <button data-lang="${lang}" 
