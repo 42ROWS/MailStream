@@ -22,6 +22,7 @@ import {
     confirmDialog
 } from '../utils/UIHelpers.js';
 import { VirtualList } from './VirtualList.js';
+import i18n from '../i18n/index.js';
 
 export default class EmailDownloaderUI {
     #container = null;
@@ -69,27 +70,27 @@ export default class EmailDownloaderUI {
             <div class="email-downloader-ui">
                 <!-- Header -->
                 <div class="glass-effect rounded-lg p-6 mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-2">📥 Download Email</h2>
-                    <p class="text-gray-600">Cerca, seleziona e scarica le tue email con allegati</p>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2" data-i18n="downloader.title">📥 Download Email</h2>
+                    <p class="text-gray-600" data-i18n="downloader.subtitle">Search, select and download your emails with attachments</p>
                 </div>
 
                 <!-- Search Filters -->
                 <div class="glass-effect rounded-lg p-6 mb-6">
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">
                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 mr-3">1</span>
-                        Filtri di Ricerca
+                        <span data-i18n="downloader.filtersTitle">Search Filters</span>
                     </h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- Date Range -->
                         <div class="form-group">
-                            <label for="filter-date-from" class="form-label">Data Da</label>
+                            <label for="filter-date-from" class="form-label" data-i18n="downloader.dateFrom">Date From</label>
                             <input type="date" 
                                    id="filter-date-from" 
                                    class="form-input">
                         </div>
                         <div class="form-group">
-                            <label for="filter-date-to" class="form-label">Data A</label>
+                            <label for="filter-date-to" class="form-label" data-i18n="downloader.dateTo">Date To</label>
                             <input type="date" 
                                    id="filter-date-to" 
                                    class="form-input">
@@ -97,68 +98,71 @@ export default class EmailDownloaderUI {
                         
                         <!-- From/To -->
                         <div class="form-group">
-                            <label for="filter-from" class="form-label">Da (Mittente)</label>
+                            <label for="filter-from" class="form-label" data-i18n="downloader.fromSender">From (Sender)</label>
                             <input type="text" 
                                    id="filter-from" 
                                    class="form-input"
-                                   placeholder="esempio@gmail.com">
+                                   data-i18n-placeholder="downloader.emailPlaceholder"
+                                   placeholder="example@gmail.com">
                         </div>
                         <div class="form-group">
-                            <label for="filter-to" class="form-label">A (Destinatario)</label>
+                            <label for="filter-to" class="form-label" data-i18n="downloader.toRecipient">To (Recipient)</label>
                             <input type="text" 
                                    id="filter-to" 
                                    class="form-input"
-                                   placeholder="esempio@gmail.com">
+                                   data-i18n-placeholder="downloader.emailPlaceholder"
+                                   placeholder="example@gmail.com">
                         </div>
                         
                         <!-- Subject -->
                         <div class="form-group md:col-span-2">
-                            <label for="filter-subject" class="form-label">Oggetto Contiene</label>
+                            <label for="filter-subject" class="form-label" data-i18n="downloader.subjectContains">Subject Contains</label>
                             <input type="text" 
                                    id="filter-subject" 
                                    class="form-input"
-                                   placeholder="Parole chiave nell'oggetto">
+                                   data-i18n-placeholder="downloader.subjectPlaceholder"
+                                   placeholder="Keywords in subject">
                         </div>
                         
                         <!-- Labels -->
                         <div class="form-group">
-                            <label for="filter-labels" class="form-label">Etichette</label>
+                            <label for="filter-labels" class="form-label" data-i18n="downloader.labels">Labels</label>
                             <select id="filter-labels" 
                                     class="form-select" 
                                     multiple 
                                     style="height: 100px;">
-                                <option value="">Caricamento...</option>
+                                <option value="" data-i18n="common.loading">Loading...</option>
                             </select>
-                            <div class="text-xs text-gray-500 mt-1">Ctrl+Click per selezione multipla</div>
+                            <div class="text-xs text-gray-500 mt-1" data-i18n="downloader.ctrlClickMultiple">Ctrl+Click for multiple selection</div>
                         </div>
                         
                         <!-- Options -->
                         <div class="form-group">
-                            <label class="form-label">Opzioni</label>
+                            <label class="form-label" data-i18n="downloader.options">Options</label>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="checkbox" 
                                            id="filter-has-attachments" 
                                            class="mr-2">
-                                    <span class="text-sm">Solo con allegati</span>
+                                    <span class="text-sm" data-i18n="downloader.withAttachments">Only with attachments</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="checkbox" 
                                            id="filter-unread" 
                                            class="mr-2">
-                                    <span class="text-sm">Solo non lette</span>
+                                    <span class="text-sm" data-i18n="downloader.unreadOnly">Only unread</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="checkbox" 
                                            id="filter-starred" 
                                            class="mr-2">
-                                    <span class="text-sm">Solo con stella</span>
+                                    <span class="text-sm" data-i18n="downloader.starred">Only starred</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="checkbox" 
                                            id="filter-important" 
                                            class="mr-2">
-                                    <span class="text-sm">Solo importanti</span>
+                                    <span class="text-sm" data-i18n="downloader.important">Only important</span>
                                 </label>
                             </div>
                         </div>
@@ -167,36 +171,37 @@ export default class EmailDownloaderUI {
                     <!-- Advanced Query -->
                     <details class="mt-4">
                         <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-indigo-600">
-                            🔍 Ricerca Avanzata
+                            <span data-i18n="downloader.advancedSearch">🔍 Advanced Search</span>
                         </summary>
                         <div class="mt-4">
                             <div class="form-group">
                                 <label for="filter-query" class="form-label">
-                                    Query Gmail Personalizzata
+                                    <span data-i18n="downloader.customQuery">Custom Gmail Query</span>
                                     <a href="https://support.google.com/mail/answer/7190" 
                                        target="_blank" 
                                        class="text-indigo-600 text-xs ml-2">
-                                       ℹ️ Guida
+                                       <span data-i18n="downloader.guide">ℹ️ Guide</span>
                                     </a>
                                 </label>
                                 <input type="text" 
                                        id="filter-query" 
                                        class="form-input"
-                                       placeholder="es: has:attachment larger:5M after:2024/1/1">
+                                       data-i18n-placeholder="downloader.queryPlaceholder"
+                                       placeholder="e.g: has:attachment larger:5M after:2024/1/1">
                             </div>
                         </div>
                     </details>
                     
                     <!-- Search Controls -->
                     <div class="flex gap-3 mt-6">
-                        <button id="search-btn" class="btn btn-primary">
-                            🔍 Cerca Email
+                        <button id="search-btn" class="btn btn-primary" data-i18n="downloader.searchEmails">
+                            🔍 Search Emails
                         </button>
-                        <button id="clear-filters-btn" class="btn btn-secondary">
-                            🗑️ Pulisci Filtri
+                        <button id="clear-filters-btn" class="btn btn-secondary" data-i18n="downloader.clearFilters">
+                            🗑️ Clear Filters
                         </button>
                         <div class="ml-auto">
-                            <label for="max-results" class="text-sm text-gray-600 mr-2">Max risultati:</label>
+                            <label for="max-results" class="text-sm text-gray-600 mr-2" data-i18n="downloader.maxResults">Max results:</label>
                             <select id="max-results" class="form-select inline-block w-24">
                                 <option value="50">50</option>
                                 <option value="100" selected>100</option>
@@ -211,20 +216,20 @@ export default class EmailDownloaderUI {
                 <div id="search-results-section" class="glass-effect rounded-lg p-6 mb-6 hidden">
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">
                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 mr-3">2</span>
-                        Risultati Ricerca
+                        <span data-i18n="downloader.resultsSection">Search Results</span>
                         <span id="results-count" class="text-sm font-normal text-gray-500 ml-2"></span>
                     </h3>
                     
                     <!-- Selection Controls -->
                     <div class="flex gap-3 mb-4">
-                        <button id="select-all-btn" class="btn btn-secondary text-sm">
-                            ☑️ Seleziona Tutto
+                        <button id="select-all-btn" class="btn btn-secondary text-sm" data-i18n="downloader.selectAll">
+                            ☑️ Select All
                         </button>
-                        <button id="deselect-all-btn" class="btn btn-secondary text-sm">
-                            ⬜ Deseleziona Tutto
+                        <button id="deselect-all-btn" class="btn btn-secondary text-sm" data-i18n="downloader.deselectAll">
+                            ⬜ Deselect All
                         </button>
                         <span class="ml-auto text-sm text-gray-600">
-                            <span id="selected-count">0</span> selezionate
+                            <span id="selected-count">0</span> <span data-i18n="downloader.selected">selected</span>
                         </span>
                     </div>
                     
@@ -235,8 +240,8 @@ export default class EmailDownloaderUI {
                     
                     <!-- Load More -->
                     <div id="load-more-section" class="text-center mt-4 hidden">
-                        <button id="load-more-btn" class="btn btn-secondary">
-                            Carica Altri Risultati
+                        <button id="load-more-btn" class="btn btn-secondary" data-i18n="downloader.loadMore">
+                            Load More Results
                         </button>
                     </div>
                 </div>
@@ -245,39 +250,39 @@ export default class EmailDownloaderUI {
                 <div id="download-options-section" class="glass-effect rounded-lg p-6 mb-6 hidden">
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">
                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 mr-3">3</span>
-                        Opzioni Download
+                        <span data-i18n="downloader.downloadOptions">Download Options</span>
                     </h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <h4 class="font-medium text-gray-700 mb-3">Contenuto</h4>
+                            <h4 class="font-medium text-gray-700 mb-3" data-i18n="downloader.content">Content</h4>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="checkbox" 
                                            id="include-attachments" 
                                            checked
                                            class="mr-2">
-                                    <span class="text-sm">Includi Allegati</span>
+                                    <span class="text-sm" data-i18n="downloader.includeAttachments">Include Attachments</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="checkbox" 
                                            id="include-body" 
                                            checked
                                            class="mr-2">
-                                    <span class="text-sm">Includi Corpo Email</span>
+                                    <span class="text-sm" data-i18n="downloader.includeBody">Include Email Body</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="checkbox" 
                                            id="include-headers" 
                                            checked
                                            class="mr-2">
-                                    <span class="text-sm">Includi Headers</span>
+                                    <span class="text-sm" data-i18n="downloader.includeHeaders">Include Headers</span>
                                 </label>
                             </div>
                         </div>
                         
                         <div>
-                            <h4 class="font-medium text-gray-700 mb-3">Formato Export</h4>
+                            <h4 class="font-medium text-gray-700 mb-3" data-i18n="downloader.exportFormat">Export Format</h4>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" 
@@ -285,21 +290,21 @@ export default class EmailDownloaderUI {
                                            value="zip" 
                                            checked
                                            class="mr-2">
-                                    <span class="text-sm">📦 ZIP (Email + Allegati)</span>
+                                    <span class="text-sm" data-i18n="downloader.zipFormat">📦 ZIP (Emails + Attachments)</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" 
                                            name="export-format" 
                                            value="csv" 
                                            class="mr-2">
-                                    <span class="text-sm">📊 CSV (Solo Metadati)</span>
+                                    <span class="text-sm" data-i18n="downloader.csvFormat">📊 CSV (Metadata Only)</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" 
                                            name="export-format" 
                                            value="both" 
                                            class="mr-2">
-                                    <span class="text-sm">📦+📊 Entrambi</span>
+                                    <span class="text-sm" data-i18n="downloader.bothFormat">📦+📊 Both</span>
                                 </label>
                             </div>
                         </div>
@@ -308,30 +313,30 @@ export default class EmailDownloaderUI {
                     <!-- Size Estimate -->
                     <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                         <div class="text-sm text-blue-800">
-                            <strong>Stima dimensioni:</strong>
-                            <span id="size-estimate">Calcolo...</span>
+                            <strong data-i18n="downloader.sizeEstimate">Size estimate:</strong>
+                            <span id="size-estimate" data-i18n="downloader.calculating">Calculating...</span>
                         </div>
                     </div>
                     
                     <!-- Download Button -->
                     <div class="flex gap-3 mt-6">
-                        <button id="start-download-btn" class="btn btn-primary">
-                            ⬇️ Inizia Download
+                        <button id="start-download-btn" class="btn btn-primary" data-i18n="downloader.startDownload">
+                            ⬇️ Start Download
                         </button>
-                        <button id="cancel-selection-btn" class="btn btn-secondary">
-                            ❌ Annulla Selezione
+                        <button id="cancel-selection-btn" class="btn btn-secondary" data-i18n="downloader.cancelSelection">
+                            ❌ Cancel Selection
                         </button>
                     </div>
                 </div>
 
                 <!-- Download Progress -->
                 <div id="download-progress-section" class="glass-effect rounded-lg p-6 hidden">
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">📊 Progresso Download</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4" data-i18n="downloader.progressTitle">📊 Download Progress</h3>
                     
                     <!-- Overall Progress -->
                     <div class="mb-6">
                         <div class="flex justify-between text-sm text-gray-600 mb-2">
-                            <span>Progresso Totale</span>
+                            <span data-i18n="downloader.totalProgress">Total Progress</span>
                             <span id="download-progress-text">0/0 (0%)</span>
                         </div>
                         <div class="progress-container">
@@ -343,19 +348,19 @@ export default class EmailDownloaderUI {
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                         <div class="text-center">
                             <div class="text-2xl font-bold text-green-600" id="stat-downloaded">0</div>
-                            <div class="text-sm text-gray-600">Scaricate</div>
+                            <div class="text-sm text-gray-600" data-i18n="downloader.downloaded">Downloaded</div>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-blue-600" id="stat-attachments">0</div>
-                            <div class="text-sm text-gray-600">Allegati</div>
+                            <div class="text-sm text-gray-600" data-i18n="downloader.attachments">Attachments</div>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-purple-600" id="stat-size">0 MB</div>
-                            <div class="text-sm text-gray-600">Dimensione</div>
+                            <div class="text-sm text-gray-600" data-i18n="downloader.size">Size</div>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-gray-600" id="stat-time-remaining">--:--</div>
-                            <div class="text-sm text-gray-600">Tempo Rimanente</div>
+                            <div class="text-sm text-gray-600" data-i18n="downloader.timeRemaining">Time Remaining</div>
                         </div>
                     </div>
                     
@@ -364,7 +369,7 @@ export default class EmailDownloaderUI {
                         <div class="flex items-center">
                             <div class="loader mr-3" style="width: 20px; height: 20px;"></div>
                             <div>
-                                <div class="text-sm font-medium text-blue-900">Download in corso...</div>
+                                <div class="text-sm font-medium text-blue-900" data-i18n="downloader.downloading">Downloading...</div>
                                 <div class="text-sm text-blue-700" id="current-download-email"></div>
                             </div>
                         </div>
@@ -372,14 +377,14 @@ export default class EmailDownloaderUI {
                     
                     <!-- Control Buttons -->
                     <div class="flex gap-3 mt-6">
-                        <button id="pause-download-btn" class="btn btn-warning">
-                            ⏸️ Pausa
+                        <button id="pause-download-btn" class="btn btn-warning" data-i18n="downloader.pause">
+                            ⏸️ Pause
                         </button>
-                        <button id="resume-download-btn" class="btn btn-success hidden">
-                            ▶️ Riprendi
+                        <button id="resume-download-btn" class="btn btn-success hidden" data-i18n="downloader.resume">
+                            ▶️ Resume
                         </button>
-                        <button id="cancel-download-btn" class="btn btn-danger">
-                            ⏹️ Annulla
+                        <button id="cancel-download-btn" class="btn btn-danger" data-i18n="downloader.cancel">
+                            ⏹️ Cancel
                         </button>
                     </div>
                 </div>
@@ -390,15 +395,15 @@ export default class EmailDownloaderUI {
                         <svg class="w-20 h-20 mx-auto text-green-500 mb-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
                         </svg>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Download Completato!</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2" data-i18n="downloader.completed">Download Complete!</h3>
                         <p class="text-gray-600 mb-6" id="download-summary"></p>
                         
                         <div class="flex justify-center gap-3">
-                            <button id="save-export-btn" class="btn btn-primary">
-                                💾 Salva Export
+                            <button id="save-export-btn" class="btn btn-primary" data-i18n="downloader.saveExport">
+                                💾 Save Export
                             </button>
-                            <button id="new-search-btn" class="btn btn-secondary">
-                                🔍 Nuova Ricerca
+                            <button id="new-search-btn" class="btn btn-secondary" data-i18n="downloader.newSearch">
+                                🔍 New Search
                             </button>
                         </div>
                     </div>
@@ -408,6 +413,11 @@ export default class EmailDownloaderUI {
         
         // Store element references
         this.#cacheElements();
+        
+        // Apply i18n translations
+        if (window.i18nInstance) {
+            window.i18nInstance.applyTranslations();
+        }
     }
     
     // Private methods

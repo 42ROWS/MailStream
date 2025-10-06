@@ -20,6 +20,7 @@ import {
     formatDuration,
     confirmDialog
 } from '../utils/UIHelpers.js';
+import i18n from '../i18n/index.js';
 
 export default class BatchSenderUI {
     #container = null;
@@ -55,15 +56,15 @@ export default class BatchSenderUI {
             <div class="batch-sender-ui">
                 <!-- Header -->
                 <div class="glass-effect rounded-lg p-6 mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-2">📤 Invio Batch Email</h2>
-                    <p class="text-gray-600">Carica un CSV con destinatario, oggetto e contenuto per inviare email in batch</p>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2" data-i18n="sender.title">📤 Batch Email Sender</h2>
+                    <p class="text-gray-600" data-i18n="sender.subtitle">Upload a CSV with recipient, subject and content to send batch emails</p>
                 </div>
 
                 <!-- Step 1: Upload CSV -->
                 <div class="glass-effect rounded-lg p-6 mb-6">
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">
                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 mr-3">1</span>
-                        Carica File CSV
+                        <span data-i18n="sender.uploadSection">Upload CSV File</span>
                     </h3>
                     
                     <div class="mb-4">
@@ -78,13 +79,13 @@ export default class BatchSenderUI {
                                           d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                                 </svg>
                                 <p class="text-sm text-gray-600">
-                                    <span class="font-medium text-indigo-600 hover:text-indigo-500">
-                                        Clicca per selezionare
+                                    <span class="font-medium text-indigo-600 hover:text-indigo-500" data-i18n="sender.clickSelect">
+                                        Click to select
                                     </span>
-                                    o trascina il file CSV qui
+                                    <span data-i18n="sender.dragFile">or drag the CSV file here</span>
                                 </p>
-                                <p class="text-xs text-gray-500 mt-2">
-                                    Il CSV deve contenere le colonne: destinatario, oggetto, contenuto
+                                <p class="text-xs text-gray-500 mt-2" data-i18n="sender.csvColumns">
+                                    CSV must contain columns: recipient, subject, content
                                 </p>
                             </label>
                         </div>
@@ -97,11 +98,11 @@ export default class BatchSenderUI {
                                         📄 <span id="file-name"></span>
                                     </p>
                                     <p class="text-xs text-green-600 mt-1">
-                                        <span id="file-rows"></span> email da inviare
+                                        <span id="file-rows"></span> <span data-i18n="sender.emailsToSend">emails to send</span>
                                     </p>
                                 </div>
-                                <button id="remove-file-btn" class="text-red-600 hover:text-red-700">
-                                    ❌ Rimuovi
+                                <button id="remove-file-btn" class="text-red-600 hover:text-red-700" data-i18n="sender.remove">
+                                    ❌ Remove
                                 </button>
                             </div>
                         </div>
@@ -109,7 +110,7 @@ export default class BatchSenderUI {
                     
                     <!-- CSV Requirements -->
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                        <h4 class="text-sm font-semibold text-blue-900 mb-2">📋 Formato CSV Richiesto:</h4>
+                        <h4 class="text-sm font-semibold text-blue-900 mb-2" data-i18n="sender.csvFormat">📋 CSV Format Required:</h4>
                         <pre class="text-xs text-blue-800 font-mono">destinatario,oggetto,contenuto
 mario.rossi@email.com,Offerta Speciale,Ciao Mario, abbiamo un'offerta per te...
 lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pre>
@@ -120,7 +121,7 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                 <div id="preview-section" class="glass-effect rounded-lg p-6 mb-6 hidden">
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">
                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 mr-3">2</span>
-                        Anteprima e Validazione
+                        <span data-i18n="sender.previewSection">Preview and Validation</span>
                     </h3>
                     
                     <!-- Validation Results -->
@@ -133,14 +134,14 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Destinatario
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="sender.recipient">
+                                        Recipient
                                     </th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Oggetto
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="sender.subject">
+                                        Subject
                                     </th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Contenuto (anteprima)
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="sender.contentPreview">
+                                        Content (preview)
                                     </th>
                                 </tr>
                             </thead>
@@ -151,7 +152,7 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                     </div>
                     
                     <div class="text-sm text-gray-500 mt-2">
-                        Mostrando prime 5 email di <span id="total-emails">0</span>
+                        <span data-i18n="sender.showing">Showing first 5 emails of</span> <span id="total-emails">0</span>
                     </div>
                 </div>
 
@@ -159,7 +160,7 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                 <div id="send-options-section" class="glass-effect rounded-lg p-6 mb-6 hidden">
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">
                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 mr-3">3</span>
-                        Opzioni di Invio
+                        <span data-i18n="sender.sendOptions">Send Options</span>
                     </h3>
                     
                     <div class="space-y-4">
@@ -171,11 +172,11 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                                        checked
                                        class="mr-3">
                                 <div>
-                                    <span class="text-sm font-medium text-gray-700">
-                                        Usa ritardo tra le email (consigliato)
+                                    <span class="text-sm font-medium text-gray-700" data-i18n="sender.useDelay">
+                                        Use delay between emails (recommended)
                                     </span>
-                                    <p class="text-xs text-gray-500">
-                                        Ritardo casuale tra 35-75 secondi per rispettare i limiti Gmail
+                                    <p class="text-xs text-gray-500" data-i18n="sender.delayDescription">
+                                        Random delay between 35-75 seconds to respect Gmail limits
                                     </p>
                                 </div>
                             </label>
@@ -188,11 +189,11 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                                        id="test-mode" 
                                        class="mr-3">
                                 <div>
-                                    <span class="text-sm font-medium text-gray-700">
-                                        Modalità Test (invia solo prime 3 email)
+                                    <span class="text-sm font-medium text-gray-700" data-i18n="sender.testMode">
+                                        Test Mode (send only first 3 emails)
                                     </span>
-                                    <p class="text-xs text-gray-500">
-                                        Utile per verificare che tutto funzioni correttamente
+                                    <p class="text-xs text-gray-500" data-i18n="sender.testDescription">
+                                        Useful to verify everything works correctly
                                     </p>
                                 </div>
                             </label>
@@ -206,14 +207,14 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                                 ⚠️
                             </div>
                             <div class="ml-3">
-                                <h3 class="text-sm font-medium text-yellow-800">
-                                    Limiti Gmail
+                                <h3 class="text-sm font-medium text-yellow-800" data-i18n="sender.gmailLimits">
+                                    Gmail Limits
                                 </h3>
                                 <div class="mt-2 text-xs text-yellow-700">
                                     <ul class="list-disc list-inside space-y-1">
-                                        <li>Account gratuito: 500 email/giorno</li>
-                                        <li>Google Workspace: 2000 email/giorno</li>
-                                        <li>Tempo stimato: ~1 minuto per email con ritardo</li>
+                                        <li data-i18n="sender.freeAccount">Free account: 500 emails/day</li>
+                                        <li data-i18n="sender.workspace">Google Workspace: 2000 emails/day</li>
+                                        <li data-i18n="sender.estimatedTime">Estimated time: ~1 minute per email with delay</li>
                                     </ul>
                                 </div>
                             </div>
@@ -222,23 +223,23 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                     
                     <!-- Action Buttons -->
                     <div class="flex gap-3 mt-6">
-                        <button id="start-sending-btn" class="btn btn-primary">
-                            🚀 Inizia Invio
+                        <button id="start-sending-btn" class="btn btn-primary" data-i18n="sender.startSending">
+                            🚀 Start Sending
                         </button>
-                        <button id="cancel-btn" class="btn btn-secondary">
-                            ❌ Annulla
+                        <button id="cancel-btn" class="btn btn-secondary" data-i18n="common.cancel">
+                            ❌ Cancel
                         </button>
                     </div>
                 </div>
 
                 <!-- Sending Progress -->
                 <div id="progress-section" class="glass-effect rounded-lg p-6 hidden">
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">📊 Progresso Invio</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4" data-i18n="sender.progressTitle">📊 Sending Progress</h3>
                     
                     <!-- Overall Progress -->
                     <div class="mb-6">
                         <div class="flex justify-between text-sm text-gray-600 mb-2">
-                            <span>Progresso Totale</span>
+                            <span data-i18n="sender.totalProgress">Total Progress</span>
                             <span id="progress-text">0/0 (0%)</span>
                         </div>
                         <div class="progress-container">
@@ -250,39 +251,39 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                     <div class="grid grid-cols-3 gap-4 mb-6">
                         <div class="text-center">
                             <div class="text-2xl font-bold text-green-600" id="stat-sent">0</div>
-                            <div class="text-sm text-gray-600">Inviate</div>
+                            <div class="text-sm text-gray-600" data-i18n="sender.sent">Sent</div>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-red-600" id="stat-failed">0</div>
-                            <div class="text-sm text-gray-600">Fallite</div>
+                            <div class="text-sm text-gray-600" data-i18n="sender.failed">Failed</div>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-gray-600" id="stat-remaining">0</div>
-                            <div class="text-sm text-gray-600">Rimanenti</div>
+                            <div class="text-sm text-gray-600" data-i18n="sender.remaining">Remaining</div>
                         </div>
                     </div>
                     
                     <!-- Current Email -->
                     <div id="current-email-info" class="p-4 bg-blue-50 border border-blue-200 rounded-lg mb-4">
                         <div class="text-sm">
-                            <strong>Invio in corso a:</strong> 
+                            <strong data-i18n="sender.sendingTo">Sending to:</strong> 
                             <span id="current-recipient" class="text-blue-700">-</span>
                         </div>
                         <div class="text-xs text-gray-600 mt-1">
-                            Tempo rimanente stimato: <span id="time-remaining">--:--</span>
+                            <span data-i18n="sender.timeRemaining">Estimated time remaining:</span> <span id="time-remaining">--:--</span>
                         </div>
                     </div>
                     
                     <!-- Control Buttons -->
                     <div class="flex gap-3">
-                        <button id="pause-btn" class="btn btn-warning">
-                            ⏸️ Pausa
+                        <button id="pause-btn" class="btn btn-warning" data-i18n="sender.pause">
+                            ⏸️ Pause
                         </button>
-                        <button id="resume-btn" class="btn btn-success hidden">
-                            ▶️ Riprendi
+                        <button id="resume-btn" class="btn btn-success hidden" data-i18n="sender.resume">
+                            ▶️ Resume
                         </button>
-                        <button id="stop-btn" class="btn btn-danger">
-                            ⏹️ Ferma
+                        <button id="stop-btn" class="btn btn-danger" data-i18n="sender.stop">
+                            ⏹️ Stop
                         </button>
                     </div>
                 </div>
@@ -293,15 +294,15 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
                         <svg class="w-20 h-20 mx-auto text-green-500 mb-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
                         </svg>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Invio Completato!</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2" data-i18n="sender.completed">Sending Complete!</h3>
                         <p class="text-gray-600 mb-6" id="complete-summary"></p>
                         
                         <div class="flex justify-center gap-3">
-                            <button id="export-results-btn" class="btn btn-secondary">
-                                📊 Esporta Risultati
+                            <button id="export-results-btn" class="btn btn-secondary" data-i18n="sender.exportResults">
+                                📊 Export Results
                             </button>
-                            <button id="new-batch-btn" class="btn btn-primary">
-                                📤 Nuovo Invio
+                            <button id="new-batch-btn" class="btn btn-primary" data-i18n="sender.newBatch">
+                                📤 New Batch
                             </button>
                         </div>
                     </div>
@@ -311,6 +312,11 @@ lucia.bianchi@email.com,Newsletter Gennaio,Gentile Lucia, ecco le novità...</pr
         
         // Cache element references
         this.#cacheElements();
+        
+        // Apply i18n translations
+        if (window.i18nInstance) {
+            window.i18nInstance.applyTranslations();
+        }
     }
     
     #cacheElements() {
