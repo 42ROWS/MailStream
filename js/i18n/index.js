@@ -75,7 +75,7 @@ class I18n {
      */
     async loadLanguage(lang) {
         try {
-            const module = await import(`./i18n/${lang}.js`);
+            const module = await import(`./${lang}.js`);
             this.translations = module.default;
             this.currentLang = lang;
             
